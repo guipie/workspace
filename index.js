@@ -14,8 +14,18 @@ app.use(
     target: "https://api.openai.com",
     changeOrigin: true,
     onProxyReq: (proxyReq, req, res) => {
-      console.log(req.originalUrl);
-      proxyReq.setHeader("Authorization", `Bearer ${process.env.API_KEY}`);
+      console.log(
+        req.originalUrl,
+        !proxyReq.getHeader("Authorization"),
+        `Bearer ${process.env.API_KEY}`
+      );
+      if (!proxyReq.getHeader("Authorization"))
+        proxyReq.setHeader("Authorization", `Bearer ${process.env.API_KEY}`);
+      else if (!proxyReq.getHeader("Authorization").startsWith("Bearer "))
+        proxyReq.setHeader(
+          "Authorization",
+          `Bearer ${proxyReq.getHeader("Authorization")}`
+        );
     },
     onProxyRes: (proxyRes, req, res) => {
       proxyRes.headers["Access-Control-Allow-Origin"] = "*";

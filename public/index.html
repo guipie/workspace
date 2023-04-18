@@ -95,6 +95,7 @@ https://cdn.jsdelivr.net/npm/axios@0.27.2/dist/axios.min.js
             answer.innerHTML = response.data.choices[0].text.replace('\n\n', '');
           })
           .catch(error => {
+            console.log(error);
             answer.innerHTML = '不好意思，开小差了😓';
           });
       } else {
