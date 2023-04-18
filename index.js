@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const PORT = 3000;
+require("dotenv").config();
 
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const app = express();
